@@ -1,7 +1,7 @@
 format_version: 3
 pipelines:
   build_and_test:
-    group: demo
+    group: sample
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 1

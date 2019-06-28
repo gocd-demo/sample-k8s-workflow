@@ -1,0 +1,58 @@
+format_version: 3
+pipelines:
+  build_and_test:
+    group: demo
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: 1
+    environment_variables:
+      DOCKERHUB_ORG: gocddemo
+    materials:
+      git:
+        git: https://github.com/gocd-demo/node-bulletin-board.git
+        shallow_clone: true
+        auto_update: true
+        branch: master
+    stages:
+    - build_and_publish_image:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+        jobs:
+          build_image:
+            timeout: 0
+            elastic_profile_id: demo-app
+            artifacts:
+            - external:
+                id: bulletin-board
+                store_id: dockerhub
+                configuration:
+                  options:
+                    image: ${DOCKERHUB_USERNAME}/bulletin-board
+                    tag: ${GO_PIPELINE_LABEL}
+            tasks:
+            - exec:
+                arguments:
+                - -c
+                - docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application
+                command: /bin/bash
+                run_if: passed
+    - VulnerabilityTests:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+        jobs:
+          RunTests:
+            timeout: 0
+            elastic_profile_id: demo-app
+            tasks:
+            - exec:
+                arguments:
+                - -c
+                - echo "Vulnerability tests are run here.."
+                command: /bin/bash
+                run_if: passed

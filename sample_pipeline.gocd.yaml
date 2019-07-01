@@ -1,0 +1,27 @@
+format_version: 3
+pipelines:
+  sample_pipeline:
+    group: Service_Pipelines
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git:
+        git: https://github.com/gocd-demo/k8s-webinar.git
+        shallow_clone: false
+        auto_update: true
+        branch: master
+    stages:
+    - Build:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+        jobs:
+          BuildJob:
+            timeout: 0
+            tasks:
+            - exec:
+                command: echo "sample"
+                run_if: passed

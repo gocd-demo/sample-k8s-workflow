@@ -31,8 +31,8 @@ pipelines:
                 store_id: dockerhub
                 configuration:
                   options:
-                    image: ${DOCKERHUB_USERNAME}/bulletin-board
-                    tag: ${GO_PIPELINE_LABEL}
+                    Image: ${DOCKERHUB_USERNAME}/bulletin-board
+                    Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
                 arguments:

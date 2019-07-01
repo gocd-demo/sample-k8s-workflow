@@ -1,12 +1,13 @@
 format_version: 3
 pipelines:
-  build_and_test:
+  build_and_publish_image:
     group: sample
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 1
     environment_variables:
       DOCKERHUB_ORG: gocddemo
+      DOCKERHUB_USERNAME: godemo
     materials:
       git:
         git: https://github.com/gocd-demo/node-bulletin-board.git

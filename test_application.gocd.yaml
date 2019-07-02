@@ -5,11 +5,10 @@ pipelines:
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished
     display_order: 2
-
     materials:
       upstream:
         pipeline: build_and_publish_image
-        stage: defaultStage
+        stage: build_and_publish_image
         name: upstream
     stages:
     - test_app_image:

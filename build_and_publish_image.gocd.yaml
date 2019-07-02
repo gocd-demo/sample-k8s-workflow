@@ -40,20 +40,3 @@ pipelines:
                 - docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application
                 command: /bin/bash
                 run_if: passed
-    - VulnerabilityTests:
-        fetch_materials: true
-        keep_artifacts: false
-        clean_workspace: false
-        approval:
-          type: success
-        jobs:
-          RunTests:
-            timeout: 0
-            elastic_profile_id: demo-app
-            tasks:
-            - exec:
-                arguments:
-                - -c
-                - echo "Vulnerability tests are run here.."
-                command: /bin/bash
-                run_if: passed

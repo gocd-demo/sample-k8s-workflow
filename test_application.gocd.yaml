@@ -1,0 +1,38 @@
+format_version: 3
+pipelines:
+  test-application:
+    group: demo
+    label_template: ${COUNT}
+    lock_behavior: unlockWhenFinished
+    display_order: 2
+
+    materials:
+      upstream:
+        pipeline: build_and_publish_image
+        stage: defaultStage
+        name: upstream
+    stages:
+    - test_app_image:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+        jobs:
+          test_app_image:
+            timeout: 0
+            elastic_profile_id: demo-app
+            tasks:
+            - fetch:
+                artifact_id: bulletin-board
+                pipeline: build_and_publish_image
+                stage: build_and_publish_image
+                job: build_image
+                artifact_origin: external
+                run_if: passed
+            - exec:
+                arguments:
+                - -c
+                - docker run $DOCKERHUB_USERNAME/bulletin-board:$GO_DEPENDENCY_LABEL_UPSTREAM npm test
+                command: /bin/bash
+                run_if: passed

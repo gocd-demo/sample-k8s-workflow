@@ -29,6 +29,7 @@ pipelines:
         jobs:
           Deploy:
             timeout: 0
+            elastic_profile_id: demo-app
             tasks:
             - exec:
                 arguments:

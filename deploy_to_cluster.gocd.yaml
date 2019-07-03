@@ -10,7 +10,7 @@ pipelines:
       NAMESPACE: gocd
     materials:
       upstream:
-        pipeline: test-application
+        pipeline: test_application
         stage: test_app_image
         name: upstream_pipeline
       SourceCodeRepo:

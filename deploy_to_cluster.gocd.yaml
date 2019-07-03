@@ -10,9 +10,9 @@ pipelines:
       NAMESPACE: gocd
     materials:
       upstream:
-        pipeline: test_application
-        stage: test_app_image
-        name: upstream_application_tests_pipeline
+        pipeline: build_and_publish_image
+        stage: build_and_publish_image
+        name: upstream_pipeline
       SourceCodeRepo:
         git: https://github.com/gocd-demo/node-bulletin-board.git
         shallow_clone: false

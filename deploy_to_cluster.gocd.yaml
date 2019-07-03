@@ -31,6 +31,16 @@ pipelines:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:
+            - fetch:
+                options:
+                  EnvironmentVariablePrefix: ''
+                  SkipImagePulling: 'true'
+                artifact_id: bulletin-board
+                pipeline: build_and_publish_image
+                stage: build_and_publish_image
+                job: build_image
+                artifact_origin: external
+                run_if: passed
             - exec:
                 arguments:
                 command: ./app-deployment.sh

@@ -36,7 +36,7 @@ pipelines:
                   EnvironmentVariablePrefix: ''
                   SkipImagePulling: 'true'
                 artifact_id: bulletin-board
-                pipeline: build_and_publish_image
+                pipeline: build_and_publish_image/test_application
                 stage: build_and_publish_image
                 job: build_image
                 artifact_origin: external

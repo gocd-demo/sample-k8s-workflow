@@ -9,7 +9,7 @@ pipelines:
       DOCKERHUB_USERNAME: godemo
       NAMESPACE: gocd
     materials:
-      upstream_application_tests_pipeline:
+      upstream:
         pipeline: test_application
         stage: test_app_image
         name: upstream_application_tests_pipeline
@@ -30,16 +30,6 @@ pipelines:
           Deploy:
             timeout: 0
             tasks:
-            - fetch:
-                options:
-                  EnvironmentVariablePrefix: ''
-                  SkipImagePulling: 'true'
-                artifact_id: bulletin-board
-                pipeline: build_and_publish_image
-                stage: build_and_publish_image
-                job: build_image
-                artifact_origin: external
-                run_if: passed
             - exec:
                 arguments:
                 command: ./app-deployment.sh

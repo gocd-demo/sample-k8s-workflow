@@ -6,7 +6,6 @@ pipelines:
     lock_behavior: unlockWhenFinished
     display_order: 2
     environment_variables:
-      DOCKERHUB_ORG: gocddemo
       DOCKERHUB_USERNAME: godemo
     materials:
       upstream:

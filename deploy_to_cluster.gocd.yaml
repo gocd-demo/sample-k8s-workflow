@@ -11,7 +11,7 @@ pipelines:
     materials:
       upstream:
         pipeline: build_and_publish_image
-        stage: build_and_publish_image
+        stage: test_app_image
         name: upstream_pipeline
       SourceCodeRepo:
         git: https://github.com/gocd-demo/node-bulletin-board.git

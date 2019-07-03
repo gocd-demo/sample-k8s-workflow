@@ -1,6 +1,6 @@
 format_version: 3
 pipelines:
-  test-application:
+  test_application:
     group: sample
     label_template: ${COUNT}
     lock_behavior: unlockWhenFinished

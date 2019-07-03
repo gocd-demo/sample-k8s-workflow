@@ -1,0 +1,46 @@
+format_version: 3
+pipelines:
+  deploy_to_cluster:
+    group: sample
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: 3
+    environment_variables:
+      DOCKERHUB_USERNAME: godemo
+      NAMESPACE: gocd
+    materials:
+      upstream_application_tests_pipeline:
+        pipeline: test_application
+        stage: test_app_image
+        name: upstream_application_tests_pipeline
+      SourceCodeRepo:
+        git: https://github.com/gocd-demo/node-bulletin-board.git
+        shallow_clone: false
+        auto_update: true
+        branch: master
+        name: SourceCodeRepo
+    stages:
+    - deploy_to_cluster:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+        jobs:
+          Deploy:
+            timeout: 0
+            tasks:
+            - fetch:
+                options:
+                  EnvironmentVariablePrefix: ''
+                  SkipImagePulling: 'true'
+                artifact_id: bulletin-board
+                pipeline: build_and_publish_image
+                stage: build_and_publish_image
+                job: build_image
+                artifact_origin: external
+                run_if: passed
+            - exec:
+                arguments:
+                command: ./app-deployment.sh
+                run_if: passed

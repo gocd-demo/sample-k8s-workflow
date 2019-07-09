@@ -27,7 +27,7 @@ pipelines:
         approval:
           type: success
         jobs:
-          Deploy:
+          deploy:
             timeout: 0
             elastic_profile_id: demo-app
             tasks:

@@ -34,7 +34,7 @@ pipelines:
             - fetch:
                 options:
                   EnvironmentVariablePrefix: ''
-                  SkipImagePulling: 'true'
+                  SkipImagePulling: true
                 artifact_id: bulletin-board
                 pipeline: build_and_publish_image/test_application
                 stage: build_and_publish_image

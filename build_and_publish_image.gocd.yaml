@@ -6,8 +6,6 @@ pipelines:
     lock_behavior: unlockWhenFinished
     display_order: 1
     environment_variables:
-      DOCKERHUB_ORG: gocddemo
-      DOCKERHUB_USERNAME: godemo
     materials:
       git:
         git: https://github.com/gocd-demo/node-bulletin-board.git

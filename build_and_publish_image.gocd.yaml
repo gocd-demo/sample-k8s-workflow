@@ -33,7 +33,9 @@ pipelines:
                     Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
-                command: sleep 600
+                arguments:
+                - 600
+                command: sleep
                 run_if: passed
             - exec:
                 arguments:

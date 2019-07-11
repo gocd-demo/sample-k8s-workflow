@@ -33,6 +33,9 @@ pipelines:
                     Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
+                command: sleep 600
+                run_if: passed
+            - exec:
                 arguments:
                 - -c
                 - docker build -t $DOCKERHUB_USERNAME/bulletin-board:$GO_PIPELINE_LABEL . -f Dockerfile.application
